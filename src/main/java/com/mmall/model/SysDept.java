@@ -1,7 +1,16 @@
 package com.mmall.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Date;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class SysDept {
     private Integer id;
 
@@ -15,7 +24,7 @@ public class SysDept {
 
     private String remark;
 
-    private String operate;
+    private String operator;
 
     private Date operateTime;
 
@@ -69,12 +78,12 @@ public class SysDept {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public String getOperate() {
-        return operate;
+    public String getOperator() {
+        return operator;
     }
 
-    public void setOperate(String operate) {
-        this.operate = operate == null ? null : operate.trim();
+    public void setOperator(String operator) {
+        this.operator = operator;
     }
 
     public Date getOperateTime() {
