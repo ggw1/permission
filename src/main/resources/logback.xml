@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration scan="true" scanPeriod="60 seconds">
-
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <!--<logger></logger>-->
-
-    <root level="INFO">
-        <appender-ref ref="STDOUT"/>
-    </root>
-
-</configuration>
+<Configuration status="debug" monitorInterval="60">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d [%t] %-5level %location - %msg%n"/>
+        </Console>
+        <RollingFile name="AppLog" fileName="${sys:catalina.base}/logs/server/server.log"
+                     filePattern="${sys:catalina.base}/logs/server/app.%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d [%t] %-5level %location - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="debug" includeLocation="true">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="AppLog" />
+        </Root>
+    </Loggers>
+</Configuration>
