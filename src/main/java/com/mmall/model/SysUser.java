@@ -1,13 +1,24 @@
 package com.mmall.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Date;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class SysUser {
     private Integer id;
 
-    private String name;
+    private String username;
 
     private String telephone;
+
+    private String mail;
 
     private String password;
 
@@ -31,12 +42,20 @@ public class SysUser {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getMail() {
+        return mail;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getTelephone() {

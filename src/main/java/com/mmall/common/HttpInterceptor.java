@@ -18,25 +18,32 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String url = request.getRequestURI().toString();
         Map parameterMap = request.getParameterMap();
-        log.info("request start. url:{},param:{}", url, JsonMapper.obj2String(parameterMap));
-        long start=System.currentTimeMillis();
-        request.setAttribute(START_TIME,start);
+        log.info("request start. url:{}, params:{}", url, JsonMapper.obj2String(parameterMap));
+        long start = System.currentTimeMillis();
+        request.setAttribute(START_TIME, start);
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 //        String url = request.getRequestURI().toString();
-//        long start=(Long) request.getAttribute(START_TIME);
-//        long end=System.currentTimeMillis();
-//        log.info("request finished. url:{},param:{}", url, end-start);
+//        long start = (Long) request.getAttribute(START_TIME);
+//        long end = System.currentTimeMillis();
+//        log.info("request finished. url:{}, cost:{}", url, end - start);
+        removeThreadLocalInfo();
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         String url = request.getRequestURI().toString();
-        long start=(Long) request.getAttribute(START_TIME);
-        long end=System.currentTimeMillis();
-        log.info("request completed. url:{},param:{}", url, end-start);
+        long start = (Long) request.getAttribute(START_TIME);
+        long end = System.currentTimeMillis();
+        log.info("request completed. url:{}, cost:{}", url, end - start);
+
+        removeThreadLocalInfo();
+    }
+
+    public void removeThreadLocalInfo() {
+        RequestHolder.remove();;
     }
 }
