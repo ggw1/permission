@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mmall.dao.SysAclModuleMapper" >
+
   <resultMap id="BaseResultMap" type="com.mmall.model.SysAclModule" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -13,19 +14,23 @@
     <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
     <result column="operate_ip" property="operateIp" jdbcType="VARCHAR" />
   </resultMap>
+
   <sql id="Base_Column_List" >
     id, name, parent_id, level, seq, status, remark, operator, operate_time, operate_ip
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from sys_acl_module
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sys_acl_module
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="com.mmall.model.SysAclModule" >
     insert into sys_acl_module (id, name, parent_id, 
       level, seq, status, 
@@ -36,6 +41,7 @@
       #{remark,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, 
       #{operateIp,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="com.mmall.model.SysAclModule" >
     insert into sys_acl_module
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -103,6 +109,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.SysAclModule" >
     update sys_acl_module
     <set >
@@ -136,6 +143,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.mmall.model.SysAclModule" >
     update sys_acl_module
     set name = #{name,jdbcType=VARCHAR},
@@ -149,4 +157,37 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getChildAclModuleListByLevel" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_acl_module
+    WHERE level like #{level} || '.%'
+  </select>
+
+  <update id="batchUpdateLevel" parameterType="map">
+    <foreach collection="sysAclModuleList" item="aclModule" separator=";">
+      UPDATE sys_acl_module
+      SET level=#{sysAclModule.level}
+      where id=#{sysAclModule.id}
+    </foreach>
+  </update>
+
+  <select id="countByNameAndParentId" parameterType="map" resultType="int">
+    select count(1)
+    from sys_acl_module
+    where  name=#{name}
+    <if test="parentId !=null">
+      AND parent_id=#{parentId}
+    </if>
+    <if test="id != null">
+      AND id !=#{id}
+    </if>
+  </select>
+
+  <select id="getAllAclModule" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_acl_module
+  </select>
 </mapper>

@@ -25,7 +25,6 @@ public class SysDeptController {
     private SysTreeService sysTreeService;
 
     @RequestMapping(value = "/dept.page")
-    @ResponseBody
     public ModelAndView page(DeptParam param){
         return new ModelAndView("dept");
     }
