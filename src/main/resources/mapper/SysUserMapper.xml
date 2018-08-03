@@ -150,15 +150,15 @@
   <update id="updateByPrimaryKey" parameterType="com.mmall.model.SysUser" >
     update sys_user
     set username = #{username,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      mail = #{mail,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      dept_id = #{deptId,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR},
-      operator = #{operator,jdbcType=VARCHAR},
-      operate_time = #{operateTime,jdbcType=TIMESTAMP},
-      operate_ip = #{operateIp,jdbcType=VARCHAR}
+    telephone = #{telephone,jdbcType=VARCHAR},
+    mail = #{mail,jdbcType=VARCHAR},
+    password = #{password,jdbcType=VARCHAR},
+    dept_id = #{deptId,jdbcType=INTEGER},
+    status = #{status,jdbcType=INTEGER},
+    remark = #{remark,jdbcType=VARCHAR},
+    operator = #{operator,jdbcType=VARCHAR},
+    operate_time = #{operateTime,jdbcType=TIMESTAMP},
+    operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

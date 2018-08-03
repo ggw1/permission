@@ -54,7 +54,6 @@ public class SysRoleService {
        return sysRoleMapper.getAll();
     }
 
-
     public boolean checkExist(String name,Integer id){
         return sysRoleMapper.countByName(name,id)>0;
     }
