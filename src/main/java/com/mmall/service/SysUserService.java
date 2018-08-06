@@ -1,6 +1,7 @@
 package com.mmall.service;
 
 import com.google.common.base.Preconditions;
+import com.google.zxing.qrcode.encoder.QRCode;
 import com.mmall.beans.PageQuery;
 import com.mmall.beans.PageResult;
 import com.mmall.common.RequestHolder;
